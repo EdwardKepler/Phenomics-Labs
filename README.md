@@ -1,0 +1,2 @@
+# PhenomicsLabs
+Phenomics Labs advances innovation in controlled environment agriculture and phenomics. We have developed portable growing labs that are a perfect micro farm for conducting data driven tests and experiments. All variables of the environment are logged and monitored and this data can be used by data scientists for predictive phenotyping and machine learning. Time lapse imaging sensors capture each grow with computer vision and machine learning algorithms for data discovery.
