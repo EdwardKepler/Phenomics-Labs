@@ -1,0 +1,10 @@
+{ 
+	"public" : {
+		"title": "Phenomics Labs",
+		"logo": "/img/PhenomicsLabs.png"
+    },
+	"INFLUX_URL": false,
+	"ELASTIC_URL": false,
+	"S3": false,
+	"COAP": false
+}
