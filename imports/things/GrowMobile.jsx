@@ -76,10 +76,11 @@ class GrowMobile extends Component {
         title: 'Room Humidity',
         icon: 'wi wi-humidity'
       },
-      // {
-      //   type: 'lux',
-      //   title: 'Light (lux)',
-      // },
+      {
+        type: 'lux',
+        title: 'Light (lux)',
+        icon: 'wi wi-sunny'
+      },
       {
         type: 'ph',
         title: 'pH',
@@ -92,12 +93,12 @@ class GrowMobile extends Component {
         icon: 'wi wi-barometer',
         max: 2000,
       },
-      // {
-      //   type: 'water_temperature',
-      //   title: 'Temperature',
-      //   icon: 'wi wi-thermometer',
-      //   unit: 'wi wi-celsius'
-      // }
+      {
+        type: 'water_temperature',
+        title: 'Temperature',
+        icon: 'wi wi-thermometer',
+        unit: 'wi wi-celsius'
+      }
     ]
   };
 
@@ -235,7 +236,7 @@ class GrowMobile extends Component {
       },
       main: {
         margin: '20px',
-        maxWidth: 550,
+        // maxWidth: 550,
       },
       oneHundred: {
         width: '100%'
@@ -259,8 +260,6 @@ class GrowMobile extends Component {
         float: 'right'
       },
       sensorData: {
-        position: 'relative',
-        top: 25,
         textAlign: 'center',
       },
       sensorIcon: {
@@ -377,6 +376,7 @@ class GrowMobile extends Component {
                   // })
                 }
           </Row>
+          <Divider />
           <Row>
             <Col xs={3} md={3}>
               <div style={styles.actuator}>
@@ -511,6 +511,7 @@ GrowMobile.propTypes = {
   luxEvent: PropTypes.object,
   ready: PropTypes.bool,
   alerts: PropTypes.array,
+  events: PropTypes.array,
 }
 
 export default GrowMobileContainer = createContainer(({ thing }) => {
@@ -533,6 +534,9 @@ export default GrowMobileContainer = createContainer(({ thing }) => {
 
   const alerts = Events.find({'event.type': 'alert',
     'thing._id': thing._id}).fetch();
+
+  const events = Events.find({'thing._id': thing._id}).fetch();
+
   const phEvents = Events.find({'event.type': 'ph',
     'thing._id': thing._id}, {
     sort: { insertedAt: -1 }
@@ -567,6 +571,7 @@ export default GrowMobileContainer = createContainer(({ thing }) => {
     humidityEvents,
     luxEvent,
     alerts,
+    events,
     ready
   }
 }, GrowMobile);
