@@ -285,7 +285,10 @@ class GrowMobile extends Component {
     const thing = this.props.thing;
     const properties = this.props.thing.properties;
     const alerts = this.props.thing.properties.alerts || {};
+    const events = this.props.events || {};
     const width = 400;
+
+    // console.log(events)
 
     return (
       <Card style={styles.main}>
@@ -449,6 +452,16 @@ class GrowMobile extends Component {
               </div>
             </Col>
           </Row>
+          <Row>
+          <Col xs={3} md={3}>
+            <h3>Event History</h3>
+            {
+              this.props.events.map((v, k) => {
+                return <p key={k}>{v.event.message}</p>
+              })
+            }
+          </Col>
+          </Row>
           <Dialog
             title="Settings"
             actions={<FlatButton
@@ -535,7 +548,7 @@ export default GrowMobileContainer = createContainer(({ thing }) => {
   const alerts = Events.find({'event.type': 'alert',
     'thing._id': thing._id}).fetch();
 
-  const events = Events.find({'thing._id': thing._id}).fetch();
+  const events = Events.find({'event.type': 'message', 'thing._id': thing._id}).fetch();
 
   const phEvents = Events.find({'event.type': 'ph',
     'thing._id': thing._id}, {

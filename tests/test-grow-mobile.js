@@ -23,16 +23,15 @@ if(_.isUndefined(uuid) || _.isUndefined(token)) {
   inquirer.prompt(questions).then(function (answers) {
     uuid = answers.uuid;
     token = answers.token;
-    createGrowHub(uuid, token);
+    growHub = createGrowHub(uuid, token);
   });
 } else {
-  createGrowHub(uuid, token);
+  growHub = createGrowHub(uuid, token);
 }
-
 
 // Create a new growHub instance and connect to https://growHub.commongarden.org
 function createGrowHub(u, t) {
-  const growHub = new Thing({
+  return new Thing({
     uuid: u,
     token: t,
     component: 'GrowMobile',
@@ -145,6 +144,20 @@ function createGrowHub(u, t) {
         // this.power_data();
       }, interval);
 
+
+      // Here we use timeouts to emit messages after a certain amount of delay.
+      setTimeout(()=>{
+        this.emit('message', 'Analyzing environment conditions...');
+      }, 3300)
+
+      setTimeout(()=>{
+        this.emit('message', 'All good');
+      }, 5000)
+
+      setTimeout(()=>{
+        this.emit('message', 'Analyzing plant images with computer vision');
+      }, 10000)
+
       // let growfile = this.get('growfile');
       // this.parseCycles(growfile.properties.cycles);
     },
@@ -233,6 +246,4 @@ function createGrowHub(u, t) {
       console.log("Humidity: " + currentHumidity);
     }
   }).connect();
-
-  console.log(growHub);
 }

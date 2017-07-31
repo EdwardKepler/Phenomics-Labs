@@ -8,6 +8,8 @@ You need to install [Meteor](https://www.meteor.com/) first (if you haven't alre
 Then, clone the repo and:
 
 ```bash
+git clone https://github.com/EdwardKepler/PhenomicsLabs
+cd PhenomicsLabs
 meteor npm install
 meteor --settings settings.json
 ```
