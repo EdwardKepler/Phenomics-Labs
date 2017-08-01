@@ -10,6 +10,7 @@ import MenuItem from 'material-ui/MenuItem';
 import {spacing, typography, zIndex} from 'material-ui/styles';
 import {cyan500} from 'material-ui/styles/colors';
 import ChevronRight from 'material-ui/svg-icons/navigation/chevron-right';
+import ShowChart from 'material-ui/svg-icons/editor/show-chart';
 import MailIcon from 'material-ui/svg-icons/content/mail';
 import FeedbackIcon from 'material-ui/svg-icons/action/feedback';
 import HelpIcon from 'material-ui/svg-icons/action/help';
@@ -134,6 +135,7 @@ class AppNavDrawer extends Component {
           // <Subheader>0 farmcoin</Subheader>
           // <ListItem primaryText="Settings" value="https://github.com/CommonGarden/Grow-IoT/" leftIcon={<SettingsIcon />} />
           }
+          <ListItem primaryText="Timeseries Charts" value="https://github.com/CommonGarden/Grow-IoT/" leftIcon={<ShowChart />} />
           <ListItem primaryText="Issues and Feedback" value="https://github.com/CommonGarden/Grow-IoT/" leftIcon={<FeedbackIcon />} />
           <ListItem primaryText="Dev list" value="https://groups.google.com/a/commongarden.org/forum/#!forum/dev" leftIcon={<MailIcon />}/>
         </SelectableList>

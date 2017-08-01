@@ -174,48 +174,48 @@ class GrowMobile extends Component {
     if (data.points[0]) return new TimeSeries(data);
   }
 
-  renderCamera() {
-    const styles = {
-      button: {
-        position: 'relative',
-        bottom: 50
-      },
-      img: {
-        maxHeight: '100%',
-        minHeight: 300,
-        width: '100%',
-        // maxWidth: 600
-      },
-      white: {
-        color: 'white'
-      }
-    }
+  // renderCamera() {
+  //   const styles = {
+  //     button: {
+  //       position: 'relative',
+  //       bottom: 50
+  //     },
+  //     img: {
+  //       maxHeight: '100%',
+  //       minHeight: 300,
+  //       width: '100%',
+  //       // maxWidth: 600
+  //     },
+  //     white: {
+  //       color: 'white'
+  //     }
+  //   }
 
-    if (this.props.ready && this.props.image) {
-      'use strict';
+  //   if (this.props.ready && this.props.image) {
+  //     'use strict';
 
-      let image = this.props.image;
-      let link = Images.findOne({_id: image._id}).link();
+  //     let image = this.props.image;
+  //     let link = Images.findOne({_id: image._id}).link();
 
-      return (
-        <div style={styles.main}>
-            <img src={link} style={styles.img} />
-            <IconButton onTouchTap={this.takePicture}
-                        tooltip="Take picture"
-                        style={styles.button}
-                        iconStyle={styles.white} ><CameraIcon /></IconButton>
-        </div>
-      )
+  //     return (
+  //       <div style={styles.main}>
+  //           <img src={link} style={styles.img} />
+  //           <IconButton onTouchTap={this.takePicture}
+  //                       tooltip="Take picture"
+  //                       style={styles.button}
+  //                       iconStyle={styles.white} ><CameraIcon /></IconButton>
+  //       </div>
+  //     )
 
-    } else return (
-      <div style={styles.img}>No Images
-        <IconButton onTouchTap={this.takePicture}
-                    tooltip="Take picture">
-          <CameraIcon />
-        </IconButton>
-      </div>
-    )
-  }
+  //   } else return (
+  //     <div style={styles.img}>No Images
+  //       <IconButton onTouchTap={this.takePicture}
+  //                   tooltip="Take picture">
+  //         <CameraIcon />
+  //       </IconButton>
+  //     </div>
+  //   )
+  // }
 
   render() {
     const styles = {
@@ -256,17 +256,11 @@ class GrowMobile extends Component {
         marginLeft: -22,
         fontSize: 13
       },
-      right: {
-        float: 'right'
-      },
       sensorData: {
         textAlign: 'center',
       },
       sensorIcon: {
         marginRight: 5
-      },
-      settings: {
-        float: 'right'
       },
       smallFont: {
         fontSize: 11
@@ -286,36 +280,37 @@ class GrowMobile extends Component {
     const properties = this.props.thing.properties;
     const alerts = this.props.thing.properties.alerts || {};
     const events = this.props.events || {};
-    const width = 400;
-
-    // console.log(events)
 
     return (
       <Card style={styles.main}>
-      <CardMedia>
-        <img src="/img/pic1.jpg"
-             style={{
-              maxWidth:100
-             }}/>
-      </CardMedia>
         <CardText>
-              <div>
-                  <img src="/img/growmobile.png"
-                       style={{
-                        maxWidth:100
-                       }}/>
-                  <IconButton
-                    tooltip="Options"
-                    tooltipPosition="top-center"
-                    onTouchTap={this.handleOpen}>
-                    <SettingsIcon />
-                  </IconButton>
-              </div>
+        {
+          // <div>
+          //     <img src="/img/growmobile.png"
+          //          style={{
+          //           maxWidth:100
+          //          }}/>
+          //     <IconButton
+          //       tooltip="Options"
+          //       tooltipPosition="top-center"
+          //       onTouchTap={this.handleOpen}>
+          //       <SettingsIcon />
+          //     </IconButton>
+          // </div>
+        }
+          <Row>
+            <Col xs={12} md={6}>
+              <img src="/img/pic1.jpg"
+               style={{
+                width:'100%'
+               }}/>
+            </Col>
+            <Col xs={12} md={6}>
               <Row style={styles.sensorData}>
                 {
                   this.state.types.map((v, k) => {
                     const events = this.getEvents(v.type);
-                    return <Col xs={4} md={4} key={k}>
+                    return <Col xs={6} md={4} key={k}>
                       <div style={styles.sensorData}>
                         <h4>
                           <i className={v.icon} style={styles.sensorIcon}></i>
@@ -341,127 +336,97 @@ class GrowMobile extends Component {
                     </Col>
                   })
                 }
-                {
-                  // // Todo: Old line chart code.
-                  // this.state.types.map((v, k) => {
-                  //   const events = this.getEvents(v.type);
-                  //   return <div key={k}>
-                  //     <div style={styles.sensorData}>
-                  //     <i className={v.icon} 
-                  //       style={styles.sensorIcon}></i> {v.title}: <strong>{this.getEventValue(v.type)}</strong>
-                  //     {v.unit ? <i className={v.unit} style={styles.sensorIcon}></i>: null}
-                  //     {v.comment ? <span style={styles.sensorIcon}>{v.comment}</span>: null}
-                  //     {
-                  //       alerts[v.type] ? <IconButton
-                  //         tooltip={alerts[v.type]}
-                  //         tooltipPosition="top-center"
-                  //         iconStyle={styles.smallIcon}
-                  //         style={styles.smallIcon}>
-                  //         <WarningIcon />
-                  //       </IconButton>: <span></span>
-                  //     }
-                  //     </div>
-                  //     {
-                  //     !events ? <div><CircularProgress /> Loading</div> :
-                  //       <ChartContainer timeRange={events.range()} width={width}>
-                  //         <ChartRow height="150">
-                  //           <YAxis
-                  //             id={v.type}
-                  //             min={events.min()} max={events.max()}
-                  //             width="30" />
-                  //           <Charts>
-                  //             <LineChart axis={v.type} series={events} />
-                  //           </Charts>
-                  //         </ChartRow>
-                  //       </ChartContainer>
-                  //     }
-                  //   </div>
-                  // })
-                }
+              </Row>
+            </Col>
           </Row>
           <Divider />
           <Row>
-            <Col xs={3} md={3}>
-              <div style={styles.actuator}>
-                <div style={styles.actionButton}>
-                  <h3>AC</h3>
-                  <FloatingActionButton secondary={this.props.thing.properties.light_state === 'on' ? true: false}
-                    backgroundColor="rgb(208, 208, 208)"
-                    data-device="light"
-                    onTouchTap={this.handleTap}>
-                    <PowerIcon />
-                  </FloatingActionButton>
-                  <br/>
-                {
-                  // <TextField
-                  //   hintText="Day start"
-                  //   floatingLabelText="Day start"
-                  //   data-key="interval"
-                  //   defaultValue={thing.properties.growfile.night.schedule}
-                  //   onChange={this.handleScheduleChange}
-                  // />
-                  // <br/>
-                  // <TextField
-                  //   hintText="Night start"
-                  //   floatingLabelText="Night start"
-                  //   data-key="interval"
-                  //   defaultValue={thing.properties.growfile.night.schedule}
-                  //   onChange={this.handleScheduleChange}
-                  // />
-                }
-                </div>
-              </div>
+            <Col xs={12} md={6}>
+              <Row>
+                <Col xs={3} md={3}>
+                  <div style={styles.actuator}>
+                    <div style={styles.actionButton}>
+                      <h3>AC</h3>
+                      <FloatingActionButton secondary={this.props.thing.properties.light_state === 'on' ? true: false}
+                        backgroundColor="rgb(208, 208, 208)"
+                        data-device="light"
+                        onTouchTap={this.handleTap}>
+                        <PowerIcon />
+                      </FloatingActionButton>
+                    </div>
+                  </div>
+                </Col>
+                <Col xs={3} md={3}>
+                  <div style={styles.actuator}>
+                    <div style={styles.actionButton}>
+                      <h3>Heater</h3>
+                      <FloatingActionButton secondary={this.props.thing.properties.pump_state === 'on' ? true: false}
+                        backgroundColor="rgb(208, 208, 208)"
+                        data-device="pump"
+                        onTouchTap={this.handleTap}>
+                        <PowerIcon />
+                      </FloatingActionButton>
+                    </div>
+                  </div>
+                </Col>
+                <Col xs={3} md={3}>
+                  <div style={styles.actuator}>
+                    <div style={styles.actionButton}>
+                      <h3>Humidifier</h3>
+                      <FloatingActionButton secondary={this.props.thing.properties.pump_state === 'on' ? true: false}
+                        backgroundColor="rgb(208, 208, 208)"
+                        data-device="pump"
+                        onTouchTap={this.handleTap}>
+                        <PowerIcon />
+                      </FloatingActionButton>
+                    </div>
+                  </div>
+                </Col>
+                <Col xs={3} md={3}>
+                  <div style={styles.actuator}>
+                    <div style={styles.actionButton}>
+                      <h3>Dehumidifier</h3>
+                      <FloatingActionButton secondary={this.props.thing.properties.pump_state === 'on' ? true: false}
+                        backgroundColor="rgb(208, 208, 208)"
+                        data-device="pump"
+                        onTouchTap={this.handleTap}>
+                        <PowerIcon />
+                      </FloatingActionButton>
+                    </div>
+                  </div>
+                </Col>
+              </Row>
             </Col>
-            <Col xs={3} md={3}>
-              <div style={styles.actuator}>
-                <div style={styles.actionButton}>
-                  <h3>Heater</h3>
-                  <FloatingActionButton secondary={this.props.thing.properties.pump_state === 'on' ? true: false}
-                    backgroundColor="rgb(208, 208, 208)"
-                    data-device="pump"
-                    onTouchTap={this.handleTap}>
-                    <PowerIcon />
-                  </FloatingActionButton>
-                </div>
-              </div>
-            </Col>
-            <Col xs={3} md={3}>
-              <div style={styles.actuator}>
-                <div style={styles.actionButton}>
-                  <h3>Humidifier</h3>
-                  <FloatingActionButton secondary={this.props.thing.properties.pump_state === 'on' ? true: false}
-                    backgroundColor="rgb(208, 208, 208)"
-                    data-device="pump"
-                    onTouchTap={this.handleTap}>
-                    <PowerIcon />
-                  </FloatingActionButton>
-                </div>
-              </div>
-            </Col>
-            <Col xs={3} md={3}>
-              <div style={styles.actuator}>
-                <div style={styles.actionButton}>
-                  <h3>Dehumidifier</h3>
-                  <FloatingActionButton secondary={this.props.thing.properties.pump_state === 'on' ? true: false}
-                    backgroundColor="rgb(208, 208, 208)"
-                    data-device="pump"
-                    onTouchTap={this.handleTap}>
-                    <PowerIcon />
-                  </FloatingActionButton>
-                </div>
-              </div>
+            <Col xs={12} md={6}>
+              <TextField
+                hintText="Day start"
+                floatingLabelText="Day start"
+                data-key="interval"
+                defaultValue="42"
+                onChange={this.handleScheduleChange}
+              />
+              <br/>
+              <TextField
+                hintText="Night start"
+                floatingLabelText="Night start"
+                data-key="interval"
+                defaultValue="42"
+                onChange={this.handleScheduleChange}
+              />
             </Col>
           </Row>
-          <Row>
-          <Col xs={3} md={3}>
-            <h3>Event History</h3>
-            {
-              this.props.events.map((v, k) => {
-                return <p key={k}>{v.event.message}</p>
-              })
-            }
-          </Col>
-          </Row>
+        {
+          // <Row>
+          // <Col xs={3} md={3}>
+          //   <h3>Event History</h3>
+          //   {
+          //     this.props.events.map((v, k) => {
+          //       return <p key={k}>{v.event.message}</p>
+          //     })
+          //   }
+          // </Col>
+          // </Row>
+        }
           <Dialog
             title="Settings"
             actions={<FlatButton
